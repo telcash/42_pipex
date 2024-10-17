@@ -6,14 +6,14 @@
 #    By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/13 17:33:20 by csalazar          #+#    #+#              #
-#    Updated: 2024/10/13 19:04:17 by csalazar         ###   ########.fr        #
+#    Updated: 2024/10/15 11:38:05 by csalazar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 INCLUDE = include
 CC = cc
-FLAGS = -Wall -Werror -Wextra -I$(INCLUDE)
+FLAGS = -g3 -Wall -Werror -Wextra -I$(INCLUDE)
 RM = rm -f
 AR = ar -r
 LIBFT = libft
@@ -29,9 +29,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 				@make -C $(LIBFT)
-				@cp $(LIBFT)/libft.a .
-				@mv libft.a $(NAME)
-				@$(AR) $(NAME) $(OBJS)
+				@$(CC) $(OBJS) $(LIBFT)/libft.a -o $(NAME)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)

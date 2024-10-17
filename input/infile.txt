@@ -1,0 +1,7 @@
+inicio
+hola Juan
+hola Maria
+adios Juan
+adios Maria
+hola Pedro
+fin
