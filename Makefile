@@ -6,7 +6,7 @@
 #    By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/13 17:33:20 by csalazar          #+#    #+#              #
-#    Updated: 2024/10/15 11:38:05 by csalazar         ###   ########.fr        #
+#    Updated: 2024/10/18 10:39:20 by csalazar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT = libft
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = ft_pipex.c ft_pipex_utils.c
+SRC_FILES = ft_pipex.c ft_pipex_utils.c ft_mod_split.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))

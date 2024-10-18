@@ -1,0 +1,5 @@
+pattern found here
+no match
+another pattern match
+more content but no pattern
+yet another pattern found here

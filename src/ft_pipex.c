@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:30 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/15 12:14:05 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:57:55 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_child_proc(int fd, char *cmd1, int *end, char **envp)
 	dup2(end[1], STDOUT_FILENO);
 	close(end[0]);
 	close(fd);
-	cmd = ft_split(cmd1, ' ');
+	//ft_putstr_fd(cmd1,2);
+	cmd = ft_split_mod(cmd1);
 	path = ft_find_path(cmd[0], envp);
 	if (!path)
 	{
@@ -29,6 +30,10 @@ void	ft_child_proc(int fd, char *cmd1, int *end, char **envp)
 		free_str_arr(cmd);
 		exit(EXIT_FAILURE);
 	}
+/* 	ft_putstr_fd(cmd[0],2);
+	ft_putchar_fd('\n', 2);
+	ft_putstr_fd(cmd[1],2);
+	ft_putchar_fd('\n', 2); */
 	if (execve(path, cmd, envp) == -1)
 	{
 		perror("Error5");
@@ -45,7 +50,10 @@ void	ft_parent_proc(int fd, char *cmd2, int *end, char **envp)
 	dup2(end[0], STDIN_FILENO);
 	close(end[1]);
 	close(fd);
-	cmd = ft_split(cmd2, ' ');
+	cmd = ft_split_mod(cmd2);
+	/* ft_putstr_fd(cmd2,2);
+	ft_putchar_fd('\n', 2); */
+	cmd = ft_split_mod(cmd2);
 	path = ft_find_path(cmd[0], envp);
 	if (!path)
 	{
@@ -53,6 +61,10 @@ void	ft_parent_proc(int fd, char *cmd2, int *end, char **envp)
 		free_str_arr(cmd);
 		exit(EXIT_FAILURE);
 	}
+/* 	ft_putstr_fd(cmd[0],2);
+	ft_putchar_fd('\n', 2);
+	ft_putstr_fd(cmd[1],2);
+	ft_putchar_fd('\n', 2); */
 	if (execve(path, cmd, envp) == -1)
 	{
 		perror("Error3");

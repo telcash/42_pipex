@@ -2,6 +2,7 @@
 
 # Color definitions
 RED="\e[31m"
+
 GR="\e[32m"
 YW="\e[33m"
 BL="\e[34m"
@@ -94,7 +95,43 @@ printf "Diff: %s\n" ${#diff}
 printf "**************************************\n"
 printf "Test 4b: ./pipex ./input/deepthought.txt \"grep Now\" \"head -2\" ./output/outfile4b.txt\n"
 ./pipex ./input/deepthought.txt "grep Now" "head -2" ./output/outfile4b.txt
-echo "${GR}Command: <./input/deepthought.txt grep Now | head -2 >./output/outfile4b-c.txt\n${RES}"
+printf "Command: <./input/deepthought.txt grep Now | head -2 >./output/outfile4b-c.txt\n"
 <./input/deepthought.txt grep Now | head -2 >./output/outfile4b-c.txt
 diff=$(diff ./output/outfile4b.txt ./output/outfile4b-c.txt)
 printf "Diff: %s\n" ${#diff}
+printf "**************************************\n"
+printf "Test 4c: ./pipex ./input/sort_input.txt \"sort\" \"uniq\" ./output/outfile4c.txt\n"
+./pipex ./input/sort_input.txt "sort" "uniq" ./output/outfile4c.txt
+printf "Command: <./input/sort_input.txt sort | uniq >./output/outfile4c-c.txt\n"
+<./input/sort_input.txt sort | uniq >./output/outfile4c-c.txt
+diff=$(diff ./output/outfile4c.txt ./output/outfile4c-c.txt)
+printf "Diff: %s\n" ${#diff}
+printf "**************************************\n"
+printf "Test 4d: ./pipex ./input/numbers.txt \"cut -d, -f1\" \"tr -d '\n'\" ./output/outfile4d.txt\n"
+./pipex ./input/numbers.txt "cut -d, -f1" "tr -d '\n'" ./output/outfile4d.txt
+printf "Command: <./input/numbers.txt cut -d, -f1 | tr -d '\n' >./output/outfile4d-c.txt\n"
+<./input/numbers.txt cut -d, -f1 | tr -d '\n' >./output/outfile4d-c.txt
+diff=$(diff ./output/outfile4d.txt ./output/outfile4d-c.txt)
+printf "Diff: %s\n" ${#diff}
+printf "**************************************\n"
+printf "Test 4e: ./pipex ./input/textfile.txt \"awk '{print \$1}'\" \"sed 's/foo/bar/'\" ./output/outfile4e.txt\n"
+./pipex ./input/textfile.txt "awk '{print \$1}'" "sed 's/foo/bar/'" ./output/outfile4e.txt
+printf "Command: <./input/textfile.txt awk '{print \$1}' | sed 's/foo/bar/' >./output/outfile4e-c.txt\n"
+<./input/textfile.txt awk '{print $1}' | sed 's/foo/bar/' >./output/outfile4e-c.txt
+diff=$(diff ./output/outfile4e.txt ./output/outfile4e-c.txt)
+printf "Diff: %s\n" ${#diff}
+printf "**************************************\n"
+printf "Test 4f: ./pipex ./input/largefile.txt \"grep pattern\" \"wc -l\" ./output/outfile4f.txt\n"
+./pipex ./input/largefile.txt "grep pattern" "wc -l" ./output/outfile4f.txt
+printf "Command: <./input/largefile.txt grep pattern | wc -l >./output/outfile4f-c.txt\n"
+<./input/largefile.txt grep pattern | wc -l >./output/outfile4f-c.txt
+diff=$(diff ./output/outfile4f.txt ./output/outfile4f-c.txt)
+printf "Diff: %s\n" ${#diff}
+printf "**************************************\n"
+printf "Test 4g: ./pipex ./input/infile.txt \"date\" \"echo\" ./output/outfile4g.txt\n"
+./pipex ./input/infile.txt "date" "echo" ./output/outfile4g.txt
+printf "Command: <./input/infile.txt date | echo >./output/outfile4g-c.txt\n"
+<./input/infile.txt date | echo >./output/outfile4g-c.txt
+diff=$(diff ./output/outfile4g.txt ./output/outfile4g-c.txt)
+printf "Diff: %s\n" ${#diff}
+printf "**************************************\n"
