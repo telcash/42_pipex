@@ -6,7 +6,7 @@
 #    By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/13 17:33:20 by csalazar          #+#    #+#              #
-#    Updated: 2024/10/18 10:39:20 by csalazar         ###   ########.fr        #
+#    Updated: 2024/10/20 22:37:07 by csalazar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,13 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 SRC_FILES = ft_pipex.c ft_pipex_utils.c ft_mod_split.c
+SRC_FILES_B = ft_pipex_bonus.c ft_pipex_utils.c ft_mod_split.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
+SRCS_B = $(addprefix $(SRC_DIR), $(SRC_FILES_B))
+
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
+OBJS_B = $(addprefix $(OBJ_DIR), $(SRC_FILES_B:.c=.o))
 
 all: $(NAME)
 
@@ -36,6 +40,10 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 				$(CC) $(FLAGS) -c $< -o $@
+
+bonus: 		 	$(OBJ_DIR) $(OBJS_B)
+				@make -C $(LIBFT)
+				@$(CC) $(OBJS_B) $(LIBFT)/libft.a -o $(NAME)
 
 clean:
 				@$(RM) $(OBJS)

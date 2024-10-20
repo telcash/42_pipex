@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:01:08 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/15 11:12:19 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:27:37 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,42 @@ char	*ft_find_path(char *cmd, char **envp)
 	}
 	free_str_arr(paths);
 	return (NULL);
+}
+
+void	ft_exec_cmd(char *cmd, char **envp)
+{
+	char	**cmds;
+	char	*path;
+
+	cmds = ft_split_mod(cmd);
+	path = ft_find_path(cmds[0], envp);
+	if (!path)
+	{
+		ft_putstr_fd("command not found\n", 2);
+		free_str_arr(cmds);
+		exit(EXIT_FAILURE);
+	}
+	if (execve(path, cmds, envp) == -1)
+	{
+		perror("Error: ");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	ft_child_proc(int fd, char *cmd, int *end, char **envp)
+{
+	dup2(fd, STDIN_FILENO);
+	dup2(end[1], STDOUT_FILENO);
+	close(end[0]);
+	close(fd);
+	ft_exec_cmd(cmd, envp);
+}
+
+void	ft_parent_proc(int fd, char *cmd, int *end, char **envp)
+{
+	dup2(fd, STDOUT_FILENO);
+	dup2(end[0], STDIN_FILENO);
+	close(end[1]);
+	close(fd);
+	ft_exec_cmd(cmd, envp);
 }
