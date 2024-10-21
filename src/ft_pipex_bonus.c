@@ -6,13 +6,13 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:01:55 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/21 21:07:22 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:57:34 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	ft_pipex_b(int fd1, int fd2, int argc, int first_com_index, char **argv,
+/* void	ft_pipex_b(int fd1, int fd2, int argc, int first_com_index, char **argv,
 		char **envp)
 {
 	int		end[2];
@@ -24,16 +24,10 @@ void	ft_pipex_b(int fd1, int fd2, int argc, int first_com_index, char **argv,
 	while (i < argc - 2)
 	{
 		if (pipe(end) == -1)
-		{
-			perror("Error: ");
-			exit(EXIT_FAILURE);
-		}
+			ft_perror();
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("Error: ");
-			exit(EXIT_FAILURE);
-		}
+			ft_perror();
 		if (pid == 0)
 		{
 			if (i == first_com_index)
@@ -47,10 +41,39 @@ void	ft_pipex_b(int fd1, int fd2, int argc, int first_com_index, char **argv,
 	}
 	close(fd);
 	ft_parent_proc(fd2, argv[i], end, envp);
+} */
+void ft_parent_proc_b(int fin, int fout, char *com, char **envp)
+{
+	int		end[2];
+	
+	if (pipe(end) == -1)
+		ft_perror();
+	dup2(fin, end[0]);
+	close(fin);
+	ft_parent_proc(fout, com, end, envp);
 }
 
-void	ft_set_fds(int *fd1, int *fd2, int *first_com_index, int argc,
-		char **argv)
+int	ft_child_proc_b(int fin, char *com, char **envp)
+{
+	int		end[2];
+	pid_t	pid;
+	int		next_fin;
+
+	if (pipe(end) == -1)
+		ft_perror();
+	pid = fork();
+	if (pid == -1)
+		ft_perror();
+	if (pid == 0)
+		ft_child_proc(fin, com, end, envp);
+	waitpid(0, NULL, 0);
+	next_fin = dup(end[0]);
+	close(end[1]);
+	close(fin);
+	return (next_fin);
+}
+
+void	ft_set_fds(int *fd1, int *fd2, int argc, char **argv)
 {
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 	{
@@ -61,13 +84,11 @@ void	ft_set_fds(int *fd1, int *fd2, int *first_com_index, int argc,
 		}
 		ft_here_doc(argv[2], fd1);
 		*fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
-		*first_com_index = 3;
 	}
 	else
 	{
 		*fd1 = open(argv[1], O_RDONLY, 0777);
 		*fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		*first_com_index = 2;
 	}
 	if (*fd1 == -1 || *fd2 == -1)
 	{
@@ -84,11 +105,24 @@ int	main(int argc, char **argv, char **envp)
 	int	fd1;
 	int	fd2;
 	int	first_com_index;
+	int i;
+	int fin;
 
 	if (argc >= 5)
 	{
-		ft_set_fds(&fd1, &fd2, &first_com_index, argc, argv);
-		ft_pipex_b(fd1, fd2, argc, first_com_index, argv, envp);
+		ft_set_fds(&fd1, &fd2, argc, argv);
+		if (ft_strncmp(argv[1], "here_doc", 8) == 0 && argc >= 6)
+			first_com_index = 3;
+		else
+			first_com_index = 2;
+		i = first_com_index;
+		fin = fd1;
+		while (i < argc - 2)
+		{
+			fin = ft_child_proc_b(fin, argv[i], envp);
+			i++;
+		}
+		ft_parent_proc_b(fin, fd2, argv[i], envp);
 	}
 	else
 		ft_putstr_fd("Bad arguments,\n", 2);
