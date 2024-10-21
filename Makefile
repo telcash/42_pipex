@@ -6,7 +6,7 @@
 #    By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/13 17:33:20 by csalazar          #+#    #+#              #
-#    Updated: 2024/10/20 22:37:07 by csalazar         ###   ########.fr        #
+#    Updated: 2024/10/21 13:07:36 by csalazar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 SRC_FILES = ft_pipex.c ft_pipex_utils.c ft_mod_split.c
-SRC_FILES_B = ft_pipex_bonus.c ft_pipex_utils.c ft_mod_split.c
+SRC_FILES_B = ft_pipex_bonus.c ft_pipex_utils_bonus.c ft_pipex_utils.c ft_mod_split.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 SRCS_B = $(addprefix $(SRC_DIR), $(SRC_FILES_B))

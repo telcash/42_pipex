@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:30 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/20 17:12:37 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:51:16 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ int	main(int argc, char **argv, char **envp)
 		fd1 = open(argv[1], O_RDONLY, 0777);
 		fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (fd1 == -1 || fd2 == -1)
-        {
+		{
 			if (fd1 >= 0)
 				close (fd1);
 			if (fd2 >= 0)
 				close (fd2);
-            perror("Error: ");
+			perror("Error: ");
 			return (1);
-        }
+		}
 		ft_pipex(fd1, fd2, argv, envp);
 	}
 	else
-		ft_putstr_fd("Bad arguments. Try: ./pipex infile cmd1 cmd2 outfile\n", 1);
+		ft_putstr_fd("Bad arguments.\n", 1);
 	return (0);
 }
