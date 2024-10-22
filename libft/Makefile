@@ -6,7 +6,7 @@
 #    By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/25 17:21:24 by csalazar          #+#    #+#              #
-#    Updated: 2024/10/13 17:45:16 by csalazar         ###   ########.fr        #
+#    Updated: 2024/10/22 08:52:23 by csalazar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = libft.a
 INCLUDE = include
 CC = cc
-FLAGS = -Wall -Wextra -Werror -I$(INCLUDE)
+FLAGS = -g3 -Wall -Wextra -Werror -I$(INCLUDE)
 RM = rm -f
 AR = ar -r
 SRC_DIR = src/

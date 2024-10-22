@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:01:08 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/20 22:27:37 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/22 08:59:44 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ char	*ft_find_path(char *cmd, char **envp)
 		path = ft_strjoin(partial_path, cmd);
 		free(partial_path);
 		if (access(path, 0) == 0)
+		{
+			free_str_arr(paths);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
@@ -63,6 +66,8 @@ void	ft_exec_cmd(char *cmd, char **envp)
 	}
 	if (execve(path, cmds, envp) == -1)
 	{
+		free_str_arr(cmds);
+		free(path);
 		perror("Error: ");
 		exit(EXIT_FAILURE);
 	}

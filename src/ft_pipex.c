@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:30 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/21 20:51:16 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/22 08:43:02 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		ft_pipex(fd1, fd2, argv, envp);
 	}
-	else
-		ft_putstr_fd("Bad arguments.\n", 1);
+	ft_putstr_fd("Bad arguments.\n", 2);
+	ft_putstr_fd("./pipex infile cmd cmd outfile\n", 2);
 	return (0);
 }
