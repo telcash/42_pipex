@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:01:08 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/22 08:59:44 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:44:02 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,18 @@ void	ft_exec_cmd(char *cmd, char **envp)
 
 void	ft_child_proc(int fd, char *cmd, int *end, char **envp)
 {
+	close(end[0]);
 	dup2(fd, STDIN_FILENO);
 	dup2(end[1], STDOUT_FILENO);
-	close(end[0]);
 	close(fd);
 	ft_exec_cmd(cmd, envp);
 }
 
 void	ft_parent_proc(int fd, char *cmd, int *end, char **envp)
 {
+	close(end[1]);
 	dup2(fd, STDOUT_FILENO);
 	dup2(end[0], STDIN_FILENO);
-	close(end[1]);
 	close(fd);
 	ft_exec_cmd(cmd, envp);
 }

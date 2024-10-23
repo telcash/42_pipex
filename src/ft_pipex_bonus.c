@@ -6,42 +6,12 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:01:55 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/21 22:57:34 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:30:32 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-/* void	ft_pipex_b(int fd1, int fd2, int argc, int first_com_index, char **argv,
-		char **envp)
-{
-	int		end[2];
-	pid_t	pid;
-	int		i;
-	int		fd;
-
-	i = first_com_index;
-	while (i < argc - 2)
-	{
-		if (pipe(end) == -1)
-			ft_perror();
-		pid = fork();
-		if (pid == -1)
-			ft_perror();
-		if (pid == 0)
-		{
-			if (i == first_com_index)
-				fd = fd1;
-			ft_child_proc(fd, argv[i], end, envp);
-		}
-		waitpid(0, NULL, 0);
-		fd = dup(end[0]);
-		close(end[1]);
-		i++;
-	}
-	close(fd);
-	ft_parent_proc(fd2, argv[i], end, envp);
-} */
 void ft_parent_proc_b(int fin, int fout, char *com, char **envp)
 {
 	int		end[2];

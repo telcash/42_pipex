@@ -6,7 +6,7 @@
 /*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:30 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/22 08:43:02 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/23 07:47:07 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_pipex(int fd1, int fd2, char **argv, char **envp)
 	}
 	if (pid == 0)
 		ft_child_proc(fd1, argv[2], end, envp);
-	waitpid(0, NULL, 0);
+	waitpid(pid, NULL, 0);
 	ft_parent_proc(fd2, argv[3], end, envp);
 }
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc == 5)
 	{
-		fd1 = open(argv[1], O_RDONLY, 0777);
+		fd1 = open(argv[1], O_RDONLY);
 		fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (fd1 == -1 || fd2 == -1)
 		{
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 			if (fd2 >= 0)
 				close (fd2);
 			perror("Error: ");
-			return (1);
+			exit(EXIT_FAILURE);
 		}
 		ft_pipex(fd1, fd2, argv, envp);
 	}
