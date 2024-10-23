@@ -129,3 +129,10 @@ printf "Command: <./input/infile.txt date | echo >./output/outfile4g-c.txt\n"
 diff=$(diff ./output/outfile4g.txt ./output/outfile4g-c.txt)
 printf "Diff: %s\n" ${#diff}
 printf "**************************************\n"
+printf "Test 5a: ./pipex ./input/infile.txt \"grep hola\" \"sort\" \"awk '{print \$2}'\" ./output/outfile5a.txt\n"
+./pipex ./input/infile.txt "grep hola" "sort" "awk '{print \$2}'" ./output/outfile5a.txt
+printf "Command: <./input/infile.txt grep hola | sort | awk '{print \$2}' >./output/outfile5a-c.txt\n"
+<./input/infile.txt grep hola | sort | awk '{print $2}' >./output/outfile5a-c.txt
+diff=$(diff ./output/outfile5a.txt ./output/outfile5a-c.txt)
+printf "Diff: %s\n" ${#diff}
+printf "**************************************\n"

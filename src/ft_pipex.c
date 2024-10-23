@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:30 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/23 07:47:07 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:26:25 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	ft_pipex(int fd1, int fd2, char **argv, char **envp)
 
 	if (pipe(end) == -1)
 	{
-		perror("Error: ");
+		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("Error: ");
+		perror("fork");
 		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
@@ -49,12 +49,12 @@ int	main(int argc, char **argv, char **envp)
 				close (fd1);
 			if (fd2 >= 0)
 				close (fd2);
-			perror("Error: ");
+			perror("open");
 			exit(EXIT_FAILURE);
 		}
 		ft_pipex(fd1, fd2, argv, envp);
 	}
-	ft_putstr_fd("Bad arguments.\n", 2);
-	ft_putstr_fd("./pipex infile cmd cmd outfile\n", 2);
+	else
+		ft_putstr_fd("Bad arguments.\n", 2);
 	return (0);
 }

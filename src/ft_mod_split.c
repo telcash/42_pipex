@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mod_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:45:29 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/18 11:04:46 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:28:09 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static size_t	numwords(char const *s)
 	i = 0;
 	while (s[i])
 	{
-        if (s[i] == 39)
-        {
-            i++;
-            while (s[i] && s[i] != 39)
-                i++;
-            count++;
-            i++;
-        }
+		if (s[i] == 39)
+		{
+			i++;
+			while (s[i] && s[i] != 39)
+				i++;
+			count++;
+			i++;
+		}
 		if (s[i] && s[i] != ' ' && (!s[i + 1] || s[i + 1] == ' '))
 			count++;
 		i++;
@@ -40,14 +40,14 @@ static char	*getword(char const *s, int start)
 {
 	size_t	i;
 	char	*word;
-    char    limit;
+	char	limit;
 
 	i = 0;
-    if (start == 0)
-        limit = ' ';
-    else
-        limit = s[start - 1];
-    s = s + start;
+	if (start == 0)
+		limit = ' ';
+	else
+		limit = s[start - 1];
+	s = s + start;
 	while (s[i] != limit && s[i])
 		i++;
 	word = (char *)malloc((i + 1) * sizeof(char));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:00:21 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/21 23:06:59 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:46:16 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ char	*ft_get_next_line(void)
 	return (line);
 }
 
+void	ft_write_lines_hd(char *line, char *limiter, int *end)
+{
+	while (line)
+	{
+		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+		{
+			free(line);
+			return ;
+		}
+		write(end[1], line, ft_strlen(line));
+		free(line);
+		line = ft_get_next_line();
+	}
+}
+
 void	ft_here_doc(char *limiter, int *fd)
 {
 	char	*line;
@@ -53,17 +68,8 @@ void	ft_here_doc(char *limiter, int *fd)
 	if (pid == 0)
 	{
 		line = ft_get_next_line();
-		while (line)
-		{
-			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
-			{
-				free(line);
-				exit(EXIT_SUCCESS);
-			}
-			write(end[1], line, ft_strlen(line));
-			free(line);
-			line = ft_get_next_line();
-		}
+		ft_write_lines_hd(line, limiter, end);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{

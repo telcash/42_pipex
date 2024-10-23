@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:01:08 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/22 12:44:02 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:29:48 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_exec_cmd(char *cmd, char **envp)
 	path = ft_find_path(cmds[0], envp);
 	if (!path)
 	{
-		ft_putstr_fd("command not found\n", 2);
+		ft_putstr_fd("wrongcommand: command not found\n", 2);
 		free_str_arr(cmds);
 		exit(EXIT_FAILURE);
 	}
@@ -68,7 +68,7 @@ void	ft_exec_cmd(char *cmd, char **envp)
 	{
 		free_str_arr(cmds);
 		free(path);
-		perror("Error: ");
+		perror("execve");
 		exit(EXIT_FAILURE);
 	}
 }

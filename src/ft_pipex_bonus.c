@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:01:55 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/22 13:30:32 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:28:48 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void ft_parent_proc_b(int fin, int fout, char *com, char **envp)
+void	ft_parent_proc_b(int fin, int fout, char *com, char **envp)
 {
-	int		end[2];
-	
+	int	end[2];
+
 	if (pipe(end) == -1)
 		ft_perror();
 	dup2(fin, end[0]);
@@ -75,8 +75,8 @@ int	main(int argc, char **argv, char **envp)
 	int	fd1;
 	int	fd2;
 	int	first_com_index;
-	int i;
-	int fin;
+	int	i;
+	int	fin;
 
 	if (argc >= 5)
 	{
