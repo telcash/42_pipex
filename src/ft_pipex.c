@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:04:30 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/23 09:26:25 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/24 07:48:23 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_pipex(int fd1, int fd2, char **argv, char **envp)
 	}
 	if (pid == 0)
 		ft_child_proc(fd1, argv[2], end, envp);
-	waitpid(pid, NULL, 0);
 	ft_parent_proc(fd2, argv[3], end, envp);
 }
 

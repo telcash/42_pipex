@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mod_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csalazar <csalazar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csalazar <csalazar@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:45:29 by csalazar          #+#    #+#             */
-/*   Updated: 2024/10/23 09:28:09 by csalazar         ###   ########.fr       */
+/*   Updated: 2024/10/24 08:29:08 by csalazar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*getword(char const *s, int start)
 	else
 		limit = s[start - 1];
 	s = s + start;
-	while (s[i] != limit && s[i])
+	while (s[i] && s[i] != limit)
 		i++;
 	word = (char *)malloc((i + 1) * sizeof(char));
 	if (!word)
@@ -83,7 +83,7 @@ char	**ft_split_mod(char const *s)
 	j = 0;
 	while (s[i] && j < numwords(s))
 	{
-		while (s[i] == ' ' || s[i] == 39 || s[i] == 34)
+		while (s[i] == ' ' || s[i] == 39)
 			i++;
 		split[j] = getword(s, i);
 		if (!split[j])
